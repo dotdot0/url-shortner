@@ -21,7 +21,7 @@ firebase_admin.initialize_app(cred, {
 class UrlForm(FlaskForm):
   longUrl = StringField('Long URL:', validators=[DataRequired()])
   converti = SubmitField('Convert')
-  key = StringField('http://127.0.0.1:5000/')
+  key = StringField('https://shortit1.herokuapp.com/')
 
 def random_key():
     mainStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
@@ -65,7 +65,7 @@ def application():
         'key' : key
       })
     form.longUrl.data=''
-    smallurl = 'http://127.0.0.1:5000/' + form.key.data
+    smallurl = 'https://shortit1.herokuapp.com/' + form.key.data
   return render_template('app.html', form=form, shorturl=smallurl)
 
 @app.route('/hello')
