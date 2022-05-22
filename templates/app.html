@@ -8,10 +8,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>ShortIt | App</title>
   </head>
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;600&display=swap');
       html, body {
       min-height: 100%;
       }
@@ -19,7 +20,7 @@
       padding: 0;
       margin: 0;
       outline: none;
-      font-family: Roboto, Arial, sans-serif;
+      font-family: 'Roboto Mono', monospace;;
       font-size: 14px;
       color: rgb(131, 127, 127);
       line-height: 22px;
@@ -28,7 +29,7 @@
       padding: 0;
       margin: 0;
       outline: none;
-      font-family: Roboto, Arial, sans-serif;
+      font-family:'Roboto Mono', monospace;
       font-size: 14px;
       background:linear-gradient(#8EC5FC, #E0C3FC);
       line-height: 22px;
@@ -37,7 +38,7 @@
       position: absolute;
       margin: 0;
       font-size: 40px;
-      color: #fff;
+      color: rgb(255, 51, 0);
       z-index: 2;
       line-height: 83px;
       }
@@ -197,6 +198,15 @@
       display:block;
       padding-bottom:5px;
       }
+      .h1{
+      padding-top: 50px;
+      position: absolute;
+      margin: 0;
+      font-size: 40px;
+      color: #F87B0B ;
+      z-index: 2;
+      line-height: 83px;
+      }
       }
     </style>
   </head>
@@ -219,6 +229,13 @@
         <div class="btn-block">
           {{ form.converti(class='button') }}
         </div>
+
+        {% if shorturl %}
+        <h1 class="h1">Short Url : {{ shorturl }}</h1>
+        {% else %}
+        <h1 class="h1">Short Url</h1>
+        {% endif %}
+        <h1 class="h1">Short Url : {{ shorturl }}</h1>
       </form>
     </div>
   </body>

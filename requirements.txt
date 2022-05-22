@@ -1,0 +1,4 @@
+flask 
+flask_wtf
+firebase_admin
+gunicorn

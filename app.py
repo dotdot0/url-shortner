@@ -65,8 +65,8 @@ def application():
         'key' : key
       })
     form.longUrl.data=''
-
-  return render_template('app.html', form=form)
+    smallurl = 'http://127.0.0.1:5000/' + form.key.data
+  return render_template('app.html', form=form, shorturl=smallurl)
 
 @app.route('/hello')
 def hello():
