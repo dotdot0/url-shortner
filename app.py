@@ -41,31 +41,55 @@ def random_key():
 def hello_world():
     return redirect("/app")
 
+@app.errorhandler(404)
+def invalid_route(e):
+  return {'error':{
+    'message' : 'Invalid Route'
+  }}
+
+"""App Route"""
 @app.route('/app',methods=('GET', 'POST'))
-def application():
+def application():#App Route Handler
+  sp = None
   ref = db.reference('/')
   longurl = None
   form = UrlForm()
   key = None
   smallurl = None
   if form.validate_on_submit():
-    longurl = form.longUrl.data
-    print(form.key.data)
+    sp = ref.order_by_key().get()
+    """Automatic Key Generation"""
     if form.key.data == '':
       key = random_key()
-      ref = db.reference('/')
-      ref.child(key).set({
-        'longUrl' : longurl,
-        'key' : key
-      })
+
+      """Checking Key Is Already Used"""
+      if key in sp.keys():
+        smallurl = 'Alias Name Used'
+        return render_template('app.html', form=form, shorturl=smallurl)
+      else:
+        longurl = form.longUrl.data
+        ref.child(key).set({
+          'longUrl' : longurl,
+          'key' : key
+        })
+
     else:
       key = form.key.data
-      ref.child(key).set({
-        'longUrl' : longurl,
-        'key' : key
-      })
+
+      """Checking Key Is Already Used"""
+      if key in sp.keys():
+        smallurl = 'Alias Name Used'
+        return render_template('app.html', form=form, shorturl=smallurl)
+
+      else:
+        longurl = form.longUrl.data 
+        ref.child(key).set({
+          'longUrl' : longurl,
+          'key' : key
+        })
+
     form.longUrl.data=''
-    smallurl = 'https://shortit1.herokuapp.com/' + form.key.data
+    smallurl = 'https://shortit1.herokuapp.com/' + key
   return render_template('app.html', form=form, shorturl=smallurl)
 
 @app.route('/hello')
