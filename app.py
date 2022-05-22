@@ -1,5 +1,5 @@
 import firebase_admin
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template
 from firebase_admin import credentials
 from firebase_admin import db
 from flask_wtf import FlaskForm
@@ -14,7 +14,7 @@ cred = credentials.Certificate('./ServiceAccountKey.json')
 
 firebase_admin.initialize_app(cred, {
   'databaseURL' : 'https://url-shotner-d5a21-default-rtdb.firebaseio.com',
-  'databaseAuthVariableOverride': None
+  'databaseAuthVariableOverride': {'uid': 'user'}
 })
 
 """Form Class"""
@@ -24,11 +24,6 @@ class UrlForm(FlaskForm):
   key = StringField('http://127.0.0.1:5000/')
 
 def random_key():
-  import random
-
-# Random Password Generator
-
-def passwGen():
     mainStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
     n = 7
@@ -40,13 +35,19 @@ def passwGen():
         key = key + mainStr[t]
 
     return key
+    
 
-@app.route('/',methods=('GET', 'POST'))
-def appl():
+@app.route("/")
+def hello_world():
+    return redirect("/app")
+
+@app.route('/app',methods=('GET', 'POST'))
+def application():
   ref = db.reference('/')
   longurl = None
   form = UrlForm()
   key = None
+  smallurl = None
   if form.validate_on_submit():
     longurl = form.longUrl.data
     print(form.key.data)
@@ -64,5 +65,16 @@ def appl():
         'key' : key
       })
     form.longUrl.data=''
-    form.key.data=''
+
   return render_template('app.html', form=form)
+
+@app.route('/hello')
+def hello():
+  return render_template('home.html')
+
+@app.route('/<key>')
+def mainRedirect(key):
+  ref = db.reference('/')
+  snapshot = ref.order_by_key().get()
+  lurl = snapshot[key]['longUrl']
+  return redirect(lurl)
