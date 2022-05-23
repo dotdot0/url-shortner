@@ -1,9 +1,9 @@
-#Short It
+# Short It
 url => https://shortit1.herokuapp.com/app
 
 Built With Flask, Firebase RealTime Database
 
-#Modeules 🚀
+# Modeules 🚀
 
 -> flask, flask_wtf, firebase_admin, gunicorn
 
