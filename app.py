@@ -9,7 +9,7 @@ import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "FSDFJKDS"
-cred = credentials.Certificate('./ServiceAccountKey.json')
+cred = credentials.Certificate('google service account')
 
 
 firebase_admin.initialize_app(cred, {
