@@ -5,10 +5,10 @@ Built With Flask, Firebase RealTime Database
 
 # Modeules 🚀
 
- -> <h3>flask</h3>
- flask_wtf, 
- firebase_admin, 
- gunicorn
+ <h2>flask</h2>
+ <h2>flask_wtf</h2> 
+ <h2>firebase_admin</h2> 
+ <h2>gunicorn</h2>
 
 
 Provide Long URL and provide a key to identify your Short URL and convert copy Short URL
